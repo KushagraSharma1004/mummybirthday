@@ -54,15 +54,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         musicPlaying = true;
     }
-    
+
+    // Image click event to open modal
+    const images = document.querySelectorAll('.gallery-images img');
+    const modal = document.getElementById('photoModal');
+    const modalImg = document.getElementById('modalImage');
+    const captionText = document.getElementById('caption');
+    const closeModal = document.querySelector('.close');
+
+    images.forEach(img => {
+        img.addEventListener('click', (event) => {
+            modal.style.display = "block";
+            modalImg.src = event.target.src;
+            //captionText.innerHTML = event.target.alt;
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
     document.getElementById('surpriseButton').addEventListener('click', () => {
-    showSurprise();
-    // Check if the audio is already playing before trying to play it
-    // If it's already playing, no need to play again
-    sound.play()
+        showSurprise();
+        sound.play()
+        // Check if the audio is already playing before trying to play it
+        // If it's already playing, no need to play again
+    });
 });
 
-});
 
 
 function showSurprise() {
