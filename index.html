@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mummy!</title>
+    <style>
+        /* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, blue, red, green);
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Add smooth scrolling */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header, .countdown, .gallery, .message {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px); /* Initially positioned for animation */
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+}
+
+.countdown h2, .gallery h2, .message h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+#countdown-timer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1.25em;
+}
+
+#countdown-timer div {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1 1 80px;
+    max-width: 110px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.gallery-images {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gallery-images img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-images img:hover {
+    transform: scale(1.05);
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    background: #ff4081;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #ff1a75;
+}
+
+#surprise {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #ffeb3b;
+    animation: bounceIn 2s;
+}
+
+.hidden {
+    display: none;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+    .header h1 {
+        font-size: 3em;
+    }
+    .gallery-images img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (min-width: 900px) {
+    .header h1 {
+        font-size: 4em;
+    }
+    .gallery-images img {
+        width: 200px;
+        height: 200px;
+    }
+    #countdown-timer div {
+        flex: 1 1 150px;
+    }
+}
+
+/* Keyframe Animations */
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+audio {
+    display: none; /* Hide the audio player */
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    align-self: center;
+    justify-self: center;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    color: #ccc;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Happy Birthday, Mummy!</h1>
+            <p>You are the best mummy in the world! We love you so much!</p>
+        </header>
+        <section class="countdown">
+            <h2>Countdown to Your Special Day!</h2>
+            <div id="countdown-timer">
+
+                <div><span id="hours"></span> Hours</div>
+                <div><span id="minutes"></span> Minutes</div>
+                <div><span id="seconds"></span> Seconds</div>
+            </div>
+        </section>
+        <section class="gallery">
+            <h2>Photo Gallery</h2>
+            <div class="gallery-images">
+                <img src="images/photo1.png" alt="Photo 1">
+                <img src="images/photo2.png" alt="Photo 2">
+                <img src="images/photo3.png" alt="Photo 3">
+                <img src="images/photo4.png" alt="Photo 4">
+            </div>
+        </section>
+        <section class="message">
+            <h2>Special Message</h2>
+            <p>Dear Mom,</p>
+            <p>Thank you for always being there for us. Your love, support, and guidance mean the world to us. We hope your day is filled with joy, laughter, and everything you love.</p>
+            <p>With all our love,</p>
+            <p>Your Family</p>
+        </section>
+        <button id="surpriseButton">Click for a Surprise!</button>
+        <div id="surprise" class="hidden">
+            <p>🎉 Surprise! 🎉</p>
+            <p>You're the best mom ever!, Thank You Very Much ♥️, Chears-🍺</p>
+        </div>
+    </div>
+    <div id="photoModal" class="modal hidden">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    const birthday = new Date('July 31, 2024 00:00:00').getTime();
+    const countdownElements = document.querySelectorAll('.header, .countdown, .gallery, .message');
+    
+    // Create a single instance of the Audio object and set it to loop
+    let sound = new Audio('music.wav');
+    sound.loop = true; // Enable looping
+    let musicPlaying = false; // To track whether the music is playing
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = birthday - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('hours').innerText = hours;
+        document.getElementById('minutes').innerText = minutes;
+        document.getElementById('seconds').innerText = seconds;
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById('countdown-timer').innerText = "Happy Birthday!";
+        }
+    }
+
+    function checkVisibility() {
+        const windowHeight = window.innerHeight;
+
+        countdownElements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= windowHeight && rect.bottom >= 0) {
+                element.classList.add('fade-in');
+                element.classList.remove('fade-out');
+            } else {
+                element.classList.add('fade-out');
+                element.classList.remove('fade-in');
+            }
+        });
+    }
+
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    window.addEventListener('scroll', checkVisibility);
+    checkVisibility();
+
+    // Play background music if not already playing
+    if (!musicPlaying) {
+        sound.play().catch(error => {
+            console.log('Audio playback failed:', error);
+        });
+        musicPlaying = true;
+    }
+
+    // Image click event to open modal
+    const images = document.querySelectorAll('.gallery-images img');
+    const modal = document.getElementById('photoModal');
+    const modalImg = document.getElementById('modalImage');
+    const captionText = document.getElementById('caption');
+    const closeModal = document.querySelector('.close');
+
+    images.forEach(img => {
+        img.addEventListener('click', (event) => {
+            modal.style.display = "block";
+            modalImg.src = event.target.src;
+            //captionText.innerHTML = event.target.alt;
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+    document.getElementById('surpriseButton').addEventListener('click', () => {
+        showSurprise();
+        sound.play()
+        // Check if the audio is already playing before trying to play it
+        // If it's already playing, no need to play again
+    });
+});
+
+
+
+function showSurprise() {
+    document.getElementById('surprise').classList.remove('hidden');
+}
+
+    </script>
+</body>
+</html>
