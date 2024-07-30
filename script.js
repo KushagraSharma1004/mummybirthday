@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
     document.getElementById('surpriseButton').addEventListener('click', () => {
-        // showSurprise();
+        showSurprise();
         sound.play()
         // Check if the audio is already playing before trying to play it
         // If it's already playing, no need to play again
