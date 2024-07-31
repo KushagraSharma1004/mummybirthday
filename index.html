@@ -275,10 +275,7 @@ audio {
         document.getElementById('minutes').innerText = minutes;
         document.getElementById('seconds').innerText = seconds;
 
-        if (distance < 0) {
-            clearInterval(countdownInterval);
-            document.getElementById('countdown-timer').innerText = "Happy Birthday!";
-        }
+        
     }
 
     function checkVisibility() {
